@@ -1,10 +1,9 @@
-import org.w3c.dom.css.CSSFontFaceRule;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * COMP2240 Assignment 2
@@ -30,11 +29,26 @@ public class P1 {
         try (final Scanner scanner = new Scanner(new File(args[0]))) {
             int n = 0;
             int s = 0;
+            final Pattern nPattern = Pattern.compile("N=\\d+,?");
+            final Pattern sPattern = Pattern.compile("S=\\d+,?");
+            final Pattern valPattern = Pattern.compile("\\d+");
             while (scanner.hasNext()) {
-                if (scanner.hasNext("N=")) {
-                    n = scanner.nextInt();
-                } else if (scanner.hasNext("S=")) {
-                    s = scanner.nextInt();
+                if (scanner.hasNext(nPattern)) {
+                    final Matcher m = valPattern.matcher(scanner.next());
+                    if (m.find()) {
+                        n = Integer.parseInt(m.group());
+                    } else {
+                        // Shouldn't happen
+                        throw new IOException();
+                    }
+                } else if (scanner.hasNext(sPattern)) {
+                    final Matcher m = valPattern.matcher(scanner.next());
+                    if (m.find()) {
+                        s = Integer.parseInt(m.group());
+                    } else {
+                        // Shouldn't happen
+                        throw new IOException();
+                    }
                 }
             }
             (new P1()).start(n, s);
@@ -52,6 +66,8 @@ public class P1 {
         for (int i = 0; i < sCount; i++) {
             farmers.add(farmerFactory.create('S', bridge));
         }
-        for (brid)
+        for (final Farmer farmer : farmers) {
+            (new Thread(farmer)).start();
+        }
     }
 }

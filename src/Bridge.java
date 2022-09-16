@@ -11,24 +11,25 @@ import java.util.concurrent.Semaphore;
 
 
 public class Bridge {
-    private int neon;
+    private static int neon;
     private final int steps;
     private final Semaphore lock;
-//    private final Island southIsland;
-//    private final Island northIsland;
-    private final Queue<Farmer> crossing;
+
+    private volatile static boolean available;
 
     public Bridge() {
         neon = 0;
         steps = 20;
-//        southIsland = new Island();
-//        northIsland = new Island();
-        crossing = new LinkedList<>();
-        lock = new Semaphore(2);
+        lock = new Semaphore(1);
+        available = true;
     }
 
     public Semaphore getLock() {
         return lock;
+    }
+
+    public boolean isAvailable() {
+        return available;
     }
 
     public void cross(Farmer farmer) throws InterruptedException {
@@ -38,7 +39,17 @@ public class Bridge {
             System.out.printf("%s:\tCrossing bridge Step %d.\n", farmer.getId(), steps);
             Thread.sleep(20);
         }
-        System.out.println("Across the bridge.");
+        if (farmer.getBound().equals(Farmer.Bound.N)) {
+            farmer.setBound(Farmer.Bound.S);
+        } else {
+            farmer.setBound(Farmer.Bound.N);
+        }
+        System.out.printf("%s:\tAcross the bridge.\n", farmer.getId());
         System.out.println("NEON = " + ++neon);
+
+        if (neon >= 100) {
+            available = false;
+            System.out.println("Terminating.");
+        }
     }
 }

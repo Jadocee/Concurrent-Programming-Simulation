@@ -1,5 +1,3 @@
-import java.util.concurrent.Semaphore;
-
 /**
  * COMP2240 Assignment 2
  * File:   Farmer.java
@@ -8,32 +6,60 @@ import java.util.concurrent.Semaphore;
  **/
 
 
-public class Farmer extends Thread {
+public class Farmer implements Runnable {
+    public static enum Bound {
+        N("North"), S("South");
+
+        private final String label;
+
+        private Bound(String label) {
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+    }
+
     private final String id;
-    private final Semaphore sem;
     private final Bridge bridge;
+    private Bound bound;
 
     public Farmer(Bridge bridge, String id) {
-        super(id);
         this.id = id;
         this.bridge = bridge;
-        sem = bridge.getLock();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Bound getBound() {
+        return bound;
+    }
+
+    public void setBound(Bound bound) {
+        this.bound = bound;
     }
 
     @Override
     public void run() {
-        try {
-            System.out.printf("%s: Waiting for bridge: Going towards %s", id, "?");
-            bridge.getLock().acquire();
-
+        while (bridge.isAvailable()) {
             try {
-                bridge.cross(this);
-            } finally {
-                bridge.getLock().release();
-            }
+                System.out.printf("%s:\tWaiting for bridge. Going towards %s\n", getId(), getBound().getLabel());
+                bridge.getLock().acquire();
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+                if (!bridge.isAvailable()) continue;
+
+                try {
+                    bridge.cross(this);
+                } finally {
+                    bridge.getLock().release();
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
