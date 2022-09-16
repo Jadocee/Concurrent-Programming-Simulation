@@ -1,4 +1,4 @@
-import java.util.Enumeration;
+import java.util.concurrent.Semaphore;
 
 /**
  * COMP2240 Assignment 2
@@ -10,13 +10,30 @@ import java.util.Enumeration;
 
 public class Farmer extends Thread {
     private final String id;
+    private final Semaphore sem;
+    private final Bridge bridge;
 
-    public Farmer(String id) {
-        super();
+    public Farmer(Bridge bridge, String id) {
+        super(id);
         this.id = id;
+        this.bridge = bridge;
+        sem = bridge.getLock();
     }
 
-    private enum Bound {
-        North, South;
+    @Override
+    public void run() {
+        try {
+            System.out.printf("%s: Waiting for bridge: Going towards %s", id, "?");
+            bridge.getLock().acquire();
+
+            try {
+                bridge.cross(this);
+            } finally {
+                bridge.getLock().release();
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

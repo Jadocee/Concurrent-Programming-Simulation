@@ -1,3 +1,5 @@
+import java.util.concurrent.Semaphore;
+
 /**
  * COMP2240 Assignment 2
  * File:   FarmerFactory.java
@@ -8,24 +10,19 @@
 
 public class FarmerFactory {
 
-    private static final FarmerFactory INSTANCE = new FarmerFactory();
     private int northIdCount;
     private int southIdCount;
 
-    private FarmerFactory() {
+    public FarmerFactory() {
         northIdCount = 1;
         southIdCount = 1;
     }
 
-    public static FarmerFactory getInstance() {
-        return INSTANCE;
-    }
-
-    public Farmer create(char type) {
+    public Farmer create(char type, Bridge bridge) {
         if (type == 'N') {
-            return new Farmer("N_Farmer" + northIdCount++);
+            return new Farmer(bridge,"N_Farmer" + northIdCount++);
         } else if (type == 'S') {
-            return new Farmer("S_Farmer" + southIdCount++);
+            return new Farmer(bridge,"S_Farmer" + southIdCount++);
         } else {
             throw new IllegalArgumentException("Expected 'N' or 'S' but received " + type);
         }

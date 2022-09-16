@@ -1,4 +1,6 @@
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -9,9 +11,21 @@ import java.util.Queue;
  **/
 
 
-public class Island {
+public class Island extends Thread {
     private Queue<Farmer> farmers;
+
     public Island() {
-        farmers = new LinkedList<>();
+        this.farmers = new LinkedList<>();
+    }
+    public Island(List<Farmer> farmers) {
+        this.farmers = new LinkedList<>();
+        this.farmers.addAll(farmers);
+    }
+
+    @Override
+    public void run() {
+        for (final Farmer farmer : farmers) {
+            farmer.start();
+        }
     }
 }
