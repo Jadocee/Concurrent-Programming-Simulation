@@ -7,20 +7,6 @@
 
 
 public class Farmer implements Runnable {
-    public static enum Bound {
-        N("North"), S("South");
-
-        private final String label;
-
-        private Bound(String label) {
-            this.label = label;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-    }
-
     private final String id;
     private final Bridge bridge;
     private Bound bound;
@@ -44,22 +30,36 @@ public class Farmer implements Runnable {
 
     @Override
     public void run() {
-        while (bridge.isAvailable()) {
+        while (!bridge.exit()) {
             try {
                 System.out.printf("%s:\tWaiting for bridge. Going towards %s\n", getId(), getBound().getLabel());
                 bridge.getLock().acquire();
-
-                if (!bridge.isAvailable()) continue;
-
                 try {
-                    bridge.cross(this);
+                    if (!bridge.exit()) {
+                        bridge.cross(this);
+                        if (bound.equals(Bound.N)) bound = Bound.S;
+                        else bound = Bound.N;
+                    }
                 } finally {
                     bridge.getLock().release();
                 }
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public enum Bound {
+        N("North"), S("South");
+
+        private final String label;
+
+        Bound(String label) {
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
         }
     }
 }

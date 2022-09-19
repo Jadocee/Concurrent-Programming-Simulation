@@ -67,7 +67,7 @@ public class P1 {
             farmers.add(farmerFactory.create('S', bridge));
         }
         for (final Farmer farmer : farmers) {
-            (new Thread(farmer)).start();
+            new Thread(farmer).start();
         }
     }
 }
