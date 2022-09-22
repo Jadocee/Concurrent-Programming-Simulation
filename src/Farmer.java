@@ -1,11 +1,16 @@
-/**
+/*
  * COMP2240 Assignment 2
  * File:   Farmer.java
  * Created: 13/09/2022
  * Author: Jaydon Cameron (C3329145)
- **/
+ */
 
-
+/**
+ * Represents a farmer in the 'sharing the bridge' problem
+ *
+ * @see Bridge
+ * @see FarmerFactory
+ */
 public class Farmer implements Runnable {
     private final String id;
     private final Bridge bridge;
@@ -16,26 +21,47 @@ public class Farmer implements Runnable {
         this.bridge = bridge;
     }
 
+    /**
+     * Get the ID of this {@link Farmer}
+     *
+     * @return the ID
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Get the {@link Bound} enum that represents the cardinal direction that {@link Farmer} the farmer will travel
+     *
+     * @return the {@link Bound}
+     */
     public Bound getBound() {
         return bound;
     }
 
+    /**
+     * Set the {@link Bound} of this {@link Farmer}
+     *
+     * @param bound the {@link Bound} enum representing the cardinal direction that this {@link Farmer} will travel
+     */
     public void setBound(Bound bound) {
         this.bound = bound;
     }
 
+    /**
+     * Run this {@link Farmer} process
+     * <p>Queues at the {@link Bridge} and crosses when it's their turn</p>
+     */
     @Override
     public void run() {
         while (!bridge.exit()) {
             try {
                 System.out.printf("%s:\tWaiting for bridge. Going towards %s\n", getId(), getBound().getLabel());
+                // Wait for turn
                 bridge.getLock().acquire();
                 try {
                     if (!bridge.exit()) {
+                        // Cross bridge
                         bridge.cross(this);
                         if (bound.equals(Bound.N)) bound = Bound.S;
                         else bound = Bound.N;
@@ -49,6 +75,9 @@ public class Farmer implements Runnable {
         }
     }
 
+    /**
+     * Enum representing the islands that a {@link Farmer} is bound for
+     */
     public enum Bound {
         N("North"), S("South");
 

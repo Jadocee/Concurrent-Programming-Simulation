@@ -5,23 +5,21 @@ import java.util.List;
 /**
  *
  */
-public class P2 extends ParlourSimulation {
-
-    public P2() {
-        super(new SemaphoreTimer(), new SemaphoreParlour());
+public class P3 extends ParlourSimulation {
+    public P3() {
+        super(new MonitorTimer(), new MonitorParlour());
     }
 
     public static void main(String[] args) {
         if (args.length < 1) throw new IllegalArgumentException("Input file name as argument.");
         try {
             final List<String> data = ParlourSimulation.readInData(new File(args[0]));
-            final P2 p2 = new P2();
-            p2.loadData(data);
-            p2.start();
+            final P3 p3 = new P3();
+            p3.loadData(data);
+            p3.start();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(1);
         }
     }
-
 }
