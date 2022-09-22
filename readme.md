@@ -55,8 +55,7 @@ five seats are occupied (i.e. there are five customers enjoying their ice-creams
 customers have to wait for the entire party (all current customers) to leave before they can get their seats.
 
 Using **semaphores**, design and implement an algorithm that manages the customers entering and leaving the ice-cream
-parlour in line with manager’s rules. Use threads to simulate multiple/concurrent customers. Your solution must be fair
-- starvation free. Assume no time is wasted in taking seat, serving/starting eating ice-cream and leaving the parlour.
+parlour in line with manager’s rules. Use threads to simulate multiple/concurrent customers. Your solution must be fair  and starvation free. Assume no time is wasted in taking seat, serving/starting eating ice-cream and leaving the parlour.
 
 ### Problem 3: Monitoring The Ice-Cream Parlour
 
