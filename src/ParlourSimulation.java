@@ -36,6 +36,10 @@ public abstract class ParlourSimulation {
 
     /**
      * Read in data for {@link Customer} instances from the .txt file specified by the {@link File}
+     * <p>The expected format of the file is <code>"x y z \n"</code>, <br>
+     * where <code>x</code> is the arrival time, <br>
+     * <code>y</code> is the ID, <br>
+     * <code>z</code> is the ice-cream eating time</p>
      *
      * @param file the file to be read
      * @return a {@link List} of data to be used by an instance of {@link ParlourSimulation}
