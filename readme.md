@@ -44,6 +44,6 @@ Using **semaphores**, design and implement an algorithm that manages the custome
 
 ### Problem 3: Monitoring The Ice-Cream Parlour
 
-You will need to implement a solution for Problem 2 (Ice-cream parlour) using monitors.
+You will need to implement a solution for '[Problem 2: (Ice-Cream Parlour)](#problem-2-ice-cream-parlour)' using monitors.
 
 Using **monitors**, design and implement an algorithm that manages the customers entering and leaving the ice-cream parlour in line with manager’s rules. Use **threads** to simulate multiple/**concurrent** customers. Your solution must be fair and starvation free, i.e., the customers will be served in the order of their arrival time and no customer should be waiting for indefinite time. Assume no time is wasted in taking seat, serving/starting eating meals and leaving the parlour.
