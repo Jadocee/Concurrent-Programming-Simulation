@@ -1,3 +1,10 @@
+/*
+ * COMP2240 Assignment 2
+ * File:    P3.java
+ * Created: 20/09/2022
+ * Author:  Jaydon Cameron (C3329145)
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;

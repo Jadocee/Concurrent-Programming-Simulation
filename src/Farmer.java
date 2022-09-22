@@ -1,8 +1,8 @@
 /*
  * COMP2240 Assignment 2
- * File:   Farmer.java
+ * File:    Farmer.java
  * Created: 13/09/2022
- * Author: Jaydon Cameron (C3329145)
+ * Author:  Jaydon Cameron (C3329145)
  */
 
 /**
@@ -16,6 +16,12 @@ public class Farmer implements Runnable {
     private final Bridge bridge;
     private Bound bound;
 
+    /**
+     * Constructor that takes and sets the bridge and ID of the instantiated {@link Farmer}
+     *
+     * @param bridge the {@link Bridge} to be crossed by the {@link Farmer}
+     * @param id     the ID of the {@link Farmer} (e.g., <code>N_Farmer1</code>, <code>N_Farmer2</code>, etc.)
+     */
     public Farmer(Bridge bridge, String id) {
         this.id = id;
         this.bridge = bridge;

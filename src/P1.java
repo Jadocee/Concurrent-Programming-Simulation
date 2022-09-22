@@ -1,3 +1,10 @@
+/*
+ * COMP2240 Assignment 2
+ * File:    P1.java
+ * Created: 16/09/2022
+ * Author:  Jaydon Cameron (C3329145)
+ */
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -5,18 +12,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * COMP2240 Assignment 2
- * File:   P1.java
- * Created: 16/09/2022
- * Author: Jaydon Cameron (C3329145)
- **/
-
-
 public class P1 {
-
     private final FarmerFactory farmerFactory;
 
+    /**
+     * Default constructor
+     */
     public P1() {
         farmerFactory = new FarmerFactory();
     }
@@ -57,6 +58,12 @@ public class P1 {
         }
     }
 
+    /**
+     * Starts the 'Sharing The Bridge' problem
+     *
+     * @param nCount the number of {@link Farmer} instances located on the north island
+     * @param sCount the number of {@link Farmer} instances located on the south island
+     */
     public void start(int nCount, int sCount) {
         final Bridge bridge = new Bridge();
         final ArrayList<Farmer> farmers = new ArrayList<>();

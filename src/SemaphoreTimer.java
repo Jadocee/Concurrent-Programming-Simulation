@@ -1,8 +1,8 @@
 /*
  * COMP2240 Assignment 2
- * File:   SemaphoreTimer.java
+ * File:    SemaphoreTimer.java
  * Created: 20/09/2022
- * Author: Jaydon Cameron (C3329145)
+ * Author:  Jaydon Cameron (C3329145)
  */
 
 import java.util.concurrent.Semaphore;
