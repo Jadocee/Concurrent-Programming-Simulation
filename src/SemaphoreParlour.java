@@ -31,12 +31,12 @@ public class SemaphoreParlour extends AbstractParlour {
     @Override
     public void enter(Customer customer) throws InterruptedException {
         try {
-            // Get lock to mutate member variables
+            // Wait to mutate member variables; acquire mutex lock
             valueLock.acquire();
             if (waitFlag) {
                 nWaiting++;
                 valueLock.release();
-                // Wait for all seats to clear
+                // Wait for all seats to clear; has mutex on wake
                 block.acquire();
                 nWaiting--;
             }
